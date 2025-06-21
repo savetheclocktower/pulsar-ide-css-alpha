@@ -14,7 +14,7 @@
     "source.css.scss",
     "source.css"
   ],
-  "repository": "https://github.com/savetheclocktower/pulsar-ide-css",
+  "repository": "https://github.com/savetheclocktower/pulsar-ide-css-alpha",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
