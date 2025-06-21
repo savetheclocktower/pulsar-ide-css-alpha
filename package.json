@@ -1,5 +1,5 @@
 {
-  "name": "pulsar-ide-css-alpha",
+  "name": "pulsar-ide-css",
   "main": "./lib/main",
   "version": "0.0.2",
   "description": "A Pulsar-native IDE provider package for CSS, SCSS, and LESS (based on VSCode’s CSS language server)",
