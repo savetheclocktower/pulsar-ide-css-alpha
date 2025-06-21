@@ -1,7 +1,7 @@
 {
   "name": "pulsar-ide-css",
   "main": "./lib/main",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Pulsar-native IDE provider package for CSS, SCSS, and LESS (based on VSCode’s CSS language server)",
   "keywords": [],
   "activationHooks": [
