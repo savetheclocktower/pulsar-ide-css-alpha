@@ -1,6 +1,6 @@
 # pulsar-ide-css-alpha package
 
-An experiment at running Visual Studio Code’s CSS language server in [Pulsar](https://pulsar-edit.dev).
+Visual Studio Code’s CSS language server in [Pulsar](https://pulsar-edit.dev). Uses [vscode-langservers-extracted](https://www.npmjs.com/package/vscode-langservers-extracted).
 
 Supports CSS, SCSS, and LESS.
 
