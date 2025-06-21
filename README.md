@@ -1,4 +1,4 @@
-# pulsar-ide-css-alpha package
+# pulsar-ide-css package
 
 Visual Studio Code’s CSS language server in [Pulsar](https://pulsar-edit.dev). Uses [vscode-langservers-extracted](https://www.npmjs.com/package/vscode-langservers-extracted).
 
@@ -22,7 +22,7 @@ If you want to override a setting for just one language, use a [scope-specific o
 
 ```coffeescript
 ".source.css.less":
-  "pulsar-ide-css-alpha":
+  "pulsar-ide-css":
     serverSettings:
       lint:
         universalSelector: "error"

@@ -1,5 +1,5 @@
 ".source.css.less":
-  "pulsar-ide-css-alpha":
+  "pulsar-ide-css":
     serverSettings:
       lint:
         # The `importStatement` rule warns about using `@import` in CSS, but it
