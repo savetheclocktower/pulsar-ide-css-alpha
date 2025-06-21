@@ -1,0 +1,16 @@
+".source.css.less":
+  "pulsar-ide-css-alpha":
+    serverSettings:
+      lint:
+        # The `importStatement` rule warns about using `@import` in CSS, but it
+        # applies equally to all three languages, even though `@import`’s
+        # behavior is vastly different in SCSS/LESS.
+        #
+        # In SCSS, `@import` is deprecated, so there are valid reasons to
+        # maintain this default for SCSS (even if the diagnostic message is
+        # inaccurate). But `@import` in LESS is still the standard way to
+        # include another file, and there is no reason to warn about it.
+        #
+        # This can still be overridden by the user in their own `config.cson`
+        # if they want to do so for whatever strange reason.
+        importStatement: "ignore"

@@ -21,6 +21,9 @@
   },
   "dependencies": {
     "@savetheclocktower/atom-languageclient": "^1.17.9",
+    "just-extend": "^6.2.0",
+    "just-safe-get": "^4.2.0",
+    "just-safe-set": "^4.2.1",
     "vscode-langservers-extracted": "^4.10.0",
     "which": "^2.0.2"
   },
@@ -29,7 +32,388 @@
       "title": "Path To Node Binary",
       "type": "string",
       "default": "node",
+      "order": 1,
       "description": "A string that can be resolved by a shell as pointing to a `node` binary. The default of `node` will usually work; you may hard-code an absolute path otherwise. (Reload the window after changing this value.)"
+    },
+    "serverSettings": {
+      "type": "object",
+      "collapsed": "false",
+      "title": "Server Settings",
+      "description": "These configuration settings apply to CSS, SCSS, and LESS alike. If you want to override any setting for a given language, use [scope-specific overrides](https://docs.pulsar-edit.dev/customizing-pulsar/language-specific-configuration-settings/).",
+      "order": 2,
+      "properties": {
+        "completion": {
+          "type": "object",
+          "order": 96,
+          "title": "Autocomplete",
+          "description": "Settings for autocompletion.",
+          "properties": {
+            "enable": {
+              "title": "Enable",
+              "description": "Whether to enable autocompletion.",
+              "type": "boolean",
+              "default": "true",
+              "order": 0
+            },
+            "completePropertyWithSemicolon": {
+              "title": "Complete property with semicolon",
+              "description": "Whether to insert a semicolon at the end of a line when completing CSS properties.",
+              "type": "boolean",
+              "default": true,
+              "order": 1
+            }
+          }
+        },
+        "references": {
+          "type": "object",
+          "order": 97,
+          "title": "References",
+          "description": "Settings for token references.",
+          "properties": {
+            "enable": {
+              "title": "Enable",
+              "description": "Whether to highlight other references to the token under the cursor.",
+              "type": "boolean",
+              "default": true,
+              "order": 0
+            }
+          }
+        },
+        "hover": {
+          "type": "object",
+          "order": 98,
+          "title": "Hover",
+          "description": "Settings for hover tooltips.",
+          "properties": {
+            "enable": {
+              "title": "Enable",
+              "description": "Whether to enable hover tooltips.",
+              "type": "boolean",
+              "default": true,
+              "order": 0
+            },
+            "documentation": {
+              "title": "Show Documentation",
+              "description": "Whether to show property and value documentation in hover tooltips. (When unchecked, hover tooltips will contain only links to MDN documentation.)",
+              "type": "boolean",
+              "default": true,
+              "order": 0
+            }
+          }
+        },
+        "format": {
+          "type": "object",
+          "order": 99,
+          "title": "Code Formatting",
+          "properties": {
+            "enable": {
+              "title": "Enable",
+              "description": "Whether to enable code formatting. (When disabled, no code formatting will be offered, even if requested.)",
+              "type": "boolean",
+              "default": true,
+              "order": 0
+            },
+            "newlineBetweenSelectors": {
+              "title": "Newline Between Selectors",
+              "description": "Separate selectors with a new line.",
+              "type": "boolean",
+              "default": true,
+              "order": 10
+            },
+            "newlineBetweenRules": {
+              "title": "Newline Between Selectors",
+              "description": "Separate rulesets by a blank line.",
+              "type": "boolean",
+              "default": true,
+              "order": 11
+            },
+            "spaceAroundSelectorSeparator": {
+              "title": "Space Around Selector Combinators",
+              "description": "Ensure a space character on either side of a combinator (e.g., `a > b`).",
+              "type": "boolean",
+              "default": true,
+              "order": 12
+            },
+            "braceStyle": {
+              "type": "string",
+              "values": [
+                "collapse",
+                "expand"
+              ],
+              "title": "Brace Style",
+              "default": "collapse",
+              "description": "Put braces on the same line as rules (`collapse`) or on their own line (`expand`).",
+              "order": 13
+            },
+            "preserveNewLines": {
+              "title": "Preserve Newlines",
+              "description": "Whether existing line breaks before rules and declarations should be preserved.",
+              "type": "boolean",
+              "default": true,
+              "order": 14
+            },
+            "maxPreserveNewLines": {
+              "title": "Maximum New Lines To Preserve",
+              "description": "Maximum number of line breaks to be preserved in one chunk when `preserveNewLines` is enabled.",
+              "type": "number",
+              "minimum": 0,
+              "default": 0,
+              "order": 15
+            }
+          }
+        },
+        "lint": {
+          "type": "object",
+          "order": 100,
+          "title": "Linting",
+          "properties": {
+            "enable": {
+              "title": "Enable",
+              "description": "Whether to show diagnostic messages.",
+              "type": "boolean",
+              "default": true,
+              "order": 0
+            },
+            "vendorPrefix": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Vendor Prefix",
+              "default": "ignore",
+              "description": "When using a vendor prefix, also include the standard property.",
+              "order": 1
+            },
+            "compatibleVendorPrefixes": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Compatible Vendor Prefixes",
+              "default": "ignore",
+              "description": "When using a vendor prefix, also include all the other vendor-specific properties.",
+              "order": 1
+            },
+            "duplicateProperties": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Duplicate Properties",
+              "default": "ignore",
+              "description": "Don’t use duplicate property assignments in the same block.",
+              "order": 2
+            },
+            "emptyRules": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Empty Rules",
+              "default": "warning",
+              "description": "Do not use empty rulesets.",
+              "order": 3
+            },
+            "importStatement": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Import Statement",
+              "default": "ignore",
+              "description": "Disallow import statements in CSS, as they do not load in parallel. (This rule does not apply to LESS files, since `@import` statements are pre-processed. If you still want it to apply to LESS files, explicitly opt into `warning` or `error` via a scope-specific override.)",
+              "order": 4
+            },
+            "boxModel": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Box Model",
+              "default": "ignore",
+              "description": "Do not use `width` or `height` when using `padding` or `border`.",
+              "order": 5
+            },
+            "universalSelector": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Universal Selector",
+              "default": "ignore",
+              "description": "The universal selector (`*`) is known to be slow.",
+              "order": 5
+            },
+            "zeroUnits": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Zero Units",
+              "default": "ignore",
+              "description": "No unit needed when the value is `0`.",
+              "order": 6
+            },
+            "fontFaceProperties": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Font Face Properties",
+              "default": "warning",
+              "description": "`@font-face` rule must define `src` and `font-family` properties.",
+              "order": 7
+            },
+            "hexColorLength": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Hex Color Length",
+              "default": "error",
+              "description": "Hex colors must consist of 3, 4, 6 or 8 hex numbers.",
+              "order": 8
+            },
+            "argumentsInColorFunction": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Arguments In Color Function",
+              "default": "error",
+              "description": "Notify when number of parameters in a color function is invalid.",
+              "order": 9
+            },
+            "unknownProperties": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Unknown Properties",
+              "default": "warning",
+              "description": "Notify when a property is unrecognized.",
+              "order": 10
+            },
+            "validProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": [],
+              "description": "A comma-separated list of properties that are not validated against the `unknownProperties` rule.",
+              "order": 11
+            },
+            "ieHack": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "IE Hack",
+              "default": "ignore",
+              "description": "IE hacks are only necessary when supporting Internet Explorer 7 and older.",
+              "order": 12
+            },
+            "unknownVendorSpecificProperties": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Unknown Vendor-Specific Properties",
+              "default": "ignore",
+              "description": "Notify when using unknown vendor-specific properties.",
+              "order": 13
+            },
+            "propertyIgnoredDueToDisplay": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Property Ignored Due To Display",
+              "default": "warning",
+              "description": "Notify when a property is ignored due to the display. (For example: with `display: inline`, the `width`, `height`, `margin-top`, `margin-bottom`, and `float` properties have no effect.)",
+              "order": 14
+            },
+            "important": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Important",
+              "default": "ignore",
+              "description": "Avoid using `!important`. It is an indication that the specificity of the entire CSS has gotten out of control and needs to be refactored.",
+              "order": 15
+            },
+            "float": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Float",
+              "default": "ignore",
+              "description": "Avoid using `float`. Floats lead to fragile CSS that is easy to break if one aspect of the layout changes.",
+              "order": 16
+            },
+            "idSelector": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "ID Selector",
+              "default": "ignore",
+              "description": "Selectors should not contain IDs because these rules are too tightly coupled with the HTML.",
+              "order": 17
+            },
+            "unknownAtRules": {
+              "type": "string",
+              "enum": [
+                "ignore",
+                "warning",
+                "error"
+              ],
+              "title": "Unknown @-rules",
+              "default": "warning",
+              "description": "Notify on unrecognized @-rules.",
+              "order": 17
+            }
+          }
+        }
+      }
     }
   },
   "consumedServices": {
