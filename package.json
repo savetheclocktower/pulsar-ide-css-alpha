@@ -9,6 +9,11 @@
     "source.css.scss:root-scope-used",
     "source.css:root-scope-used"
   ],
+  "enhancedScopes": [
+    "source.css.less",
+    "source.css.scss",
+    "source.css"
+  ],
   "repository": "https://github.com/savetheclocktower/pulsar-ide-css-alpha",
   "license": "MIT",
   "engines": {
@@ -16,7 +21,8 @@
   },
   "dependencies": {
     "@savetheclocktower/atom-languageclient": "^1.17.9",
-    "@savetheclocktower/css-languageserver": "^1.0.1"
+    "vscode-langservers-extracted": "^4.10.0",
+    "which": "^2.0.2"
   },
   "configSchema": {
     "nodeBin": {
@@ -30,6 +36,11 @@
     "linter-indie": {
       "versions": {
         "2.0.0": "consumeLinterV2"
+      }
+    },
+    "atom-ide-busy-signal": {
+      "versions": {
+        "0.1.0": "consumeBusySignal"
       }
     },
     "datatip": {
